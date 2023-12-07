@@ -57,6 +57,7 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter }) 
                 parameterKey = 'pressure';
                 break;
             default:
+                alert('The selected parameter is not supported yet. Please select a different one.');
                 console.error('Unknown parameter:', selectedParameter);
                 return;
         }
