@@ -32,10 +32,10 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter }) 
         // Check the selected parameter and filter based on it
         let parameterKey;
         switch (selectedParameter) {
-            case 'max':
+            case 'max temp':
                 parameterKey = 'max';
                 break;
-            case 'min':
+            case 'min temp':
                 parameterKey = 'min';
                 break;
             // case 'wind':
@@ -47,10 +47,10 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter }) 
             case 'rain':
                 parameterKey = 'rain';
                 break;
-            case 'humidi':
+            case 'humidity':
                 parameterKey = 'humidi';
                 break;
-            case 'cloud':
+            case 'cloud density':
                 parameterKey = 'cloud';
                 break;
             case 'pressure':

@@ -4,13 +4,14 @@ import ParameterDropdown from './script/ParameterDropdown';
 import YearDropdown from './script/YearDropdown';
 import { fetchWeatherData } from './script/d3test';
 import LineChart from './chart/LineChart';
+import "./App.css"
 
 const App = () => {
   const [selectedProvince, setSelectedProvince] = useState('');
   const [provinces, setProvinces] = useState([]);
 
   const [selectedParameter, setSelectedParameter] = useState(''); // Initial selection
-  const parameterOptions = ['max', 'min', 'wind', 'rain', 'humidi', 'cloud', 'pressure']; //wind_d (wind direction is not supported yet)
+  const parameterOptions = ['max temp', 'min temp', 'rain', 'humidity', 'cloud density', 'pressure']; //wind and wind_d (wind direction is not supported yet)
 
   const [selectedYear, setSelectedYear] = useState(''); // Initial selection
   const [years, setYears] = useState([]);
