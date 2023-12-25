@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
+import GeoMap from './GeoMap';
 
 const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter }) => {
     const chartRef = useRef();
@@ -14,8 +15,8 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter }) 
             .remove();
 
         const margin = { top: 40, right: 30, bottom: 40, left: 50 };
-        const width = 1400 - margin.left - margin.right;
-        const height = 600 - margin.top - margin.bottom;
+        const width = 1200 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
 
         const svg = d3
             .select(chartRef.current)
@@ -193,7 +194,13 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter }) 
         svg.append('g').attr('class', 'y-axis').call(yAxis);
     }, [data, selectedParameter, selectedProvince, selectedYear]);
 
-    return <svg ref={chartRef}></svg>;
+    return (
+        <>
+            <svg ref={chartRef}></svg>
+            <GeoMap /> {/* Use the GeoMap component */}
+            {/* You can add other components or divs here for additional content */}
+        </>
+    );
 };
 
 export default LineChart;

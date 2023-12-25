@@ -1,33 +1,44 @@
 /* App.css */
+* {
+  box-sizing: border-box;
+}
 
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
-  }
-  
-  .container {
-    text-align: center;
-  }
-  
-  .dropdown {
-    margin: 10px;
-  }
-  
-  .chart-container {
-    margin-top: 20px;
-  }
-  
-  .line-chart {
-    width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  /* Add more styles as needed */
-  
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.container {
+  text-align: center;
+}
+
+.line-chart {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.province-label {
+  font-size: 12px;
+  fill: black;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 20px;
+  background-color: #f8f9fa;
+  width: 100%;
+}
+
+.navbar select {
+  width: 200px;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+  background-color: #e9ecef;
+  font-size: 16px;
+}

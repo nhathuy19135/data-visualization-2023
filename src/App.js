@@ -46,29 +46,35 @@ const App = () => {
 
 
   return (
-    <div>
-      {/* Other components and dropdowns go here */}
-      <ProvinceDropdown
-        provinces={provinces}
-        selectedProvince={selectedProvince}
-        handleSelect={handleProvinceSelect}
-      />
-      <ParameterDropdown
-        parameterOptions={parameterOptions}
-        selectedParameter={selectedParameter}
-        handleSelect={handleParameterSelect}
-      />
-      <YearDropdown
-        years={years}
-        selectedYear={selectedYear}
-        handleSelect={handleYearSelect}
-      />
-      <LineChart
-        data={data}
-        selectedProvince={selectedProvince}
-        selectedYear={selectedYear}
-        selectedParameter={selectedParameter}
-      />
+    <div className="App">
+      <header className="header">
+        <h1>Weather Data Visualization</h1>
+        <p>Visualizing weather data by province in Vietnam</p>
+      </header>
+      <><div className='navbar'>
+        {/* Other components and dropdowns go here */}
+        <ProvinceDropdown
+          provinces={provinces}
+          selectedProvince={selectedProvince}
+          handleSelect={handleProvinceSelect} />
+        <ParameterDropdown
+          parameterOptions={parameterOptions}
+          selectedParameter={selectedParameter}
+          handleSelect={handleParameterSelect} />
+        <YearDropdown
+          years={years}
+          selectedYear={selectedYear}
+          handleSelect={handleYearSelect} />
+
+      </div><LineChart
+          data={data}
+          selectedProvince={selectedProvince}
+          selectedYear={selectedYear}
+          selectedParameter={selectedParameter} /></>
+      <footer className="footer">
+        <p></p>
+        <p>footer</p>
+      </footer>
     </div>
 
   );
