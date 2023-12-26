@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import GeoMap from './GeoMap';
 
-const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter }) => {
+const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, }) => {
     const chartRef = useRef();
 
     useEffect(() => {
@@ -140,6 +140,15 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter }) 
             .attr("text-anchor", "left")
             .attr("alignment-baseline", "middle");
 
+        svg
+            .append('text')
+            .attr('x', width / 2)
+            .attr('y', -margin.top / 2)
+            .attr('text-anchor', 'middle')
+            .style('font-size', '16px')
+            .style('font-weight', 'bold')
+            .text('Line Chart');
+
         // Create a rect on top of the svg area: this rectangle recovers mouse position
         svg
             .append('rect')
@@ -192,14 +201,18 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter }) 
             .call(xAxis);
 
         svg.append('g').attr('class', 'y-axis').call(yAxis);
-    }, [data, selectedParameter, selectedProvince, selectedYear]);
+
+       
+    }, [data, selectedParameter, selectedProvince, selectedYear, ]);
+    
 
     return (
-        <>
-            <svg ref={chartRef}></svg>
-            <GeoMap /> {/* Use the GeoMap component */}
-            {/* You can add other components or divs here for additional content */}
-        </>
+        <div>
+        <svg ref={chartRef}></svg>
+        <div className="geomap-container">
+            <GeoMap selectedProvince={selectedProvince}/> {/* Use the GeoMap component */}
+        </div>
+    </div>
     );
 };
 

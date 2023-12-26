@@ -4,6 +4,7 @@ import ParameterDropdown from './script/ParameterDropdown';
 import YearDropdown from './script/YearDropdown';
 import { fetchWeatherData } from './script/d3test';
 import LineChart from './chart/LineChart';
+import ScatterPlot from './chart/ScatterPlot';
 import "./App.css"
 
 const App = () => {
@@ -70,7 +71,14 @@ const App = () => {
           data={data}
           selectedProvince={selectedProvince}
           selectedYear={selectedYear}
-          selectedParameter={selectedParameter} /></>
+          selectedParameter={selectedParameter} />
+           <ScatterPlot
+        data={data}
+        selectedProvince={selectedProvince}
+        selectedYear={selectedYear}
+        selectedParameter={selectedParameter}
+      />
+      </>
       <footer className="footer">
         <p></p>
         <p>footer</p>

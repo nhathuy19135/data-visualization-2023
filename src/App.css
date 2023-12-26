@@ -42,3 +42,14 @@ body {
   background-color: #e9ecef;
   font-size: 16px;
 }
+.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 80px;
+  padding: 8px;  /* Increased padding */
+  margin: 4px;   /* Added margin */
+  font: 12px sans-serif;
+  background: lightsteelblue;
+  border-radius: 8px;
+  pointer-events: none;
+}
