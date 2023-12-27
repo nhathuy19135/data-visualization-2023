@@ -44,12 +44,18 @@ body {
 }
 .tooltip {
   position: absolute;
-  text-align: center;
-  width: 80px;
-  padding: 8px;  /* Increased padding */
-  margin: 4px;   /* Added margin */
-  font: 12px sans-serif;
-  background: lightsteelblue;
-  border-radius: 8px;
+  text-align: left;
+  width: auto; /* Let the tooltip resize based on content */
+  padding: 10px; /* Increase padding for better spacing */
+  margin: 4px;
+  font-size: 14px; /* Increase font size for better readability */
+  font-family: Arial, sans-serif; /* Use a more readable font */
+  background: #333; /* Use a darker background for contrast */
+  color: #fff; /* Use white color for text for better visibility */
+  border-radius: 5px; /* Reduce border radius for a more modern look */
+  box-shadow: 0px 0px 10px rgba(2, 198, 243, 0.5); /* Add a shadow for depth */
   pointer-events: none;
+}
+.invisible {
+  opacity: 0;
 }

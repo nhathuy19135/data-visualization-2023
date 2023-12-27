@@ -89,7 +89,7 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
-                tooltip.html(d[0])
+                tooltip.html(`${d[0]}<br/>Temperature: ${d[1]}`)  
                     .style("left", (event.pageX) + "px")
                     .style("top", (event.pageY - 28) + "px");
             })
@@ -108,7 +108,7 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
 
         svg
             .append('g')
-            .attr('class', 'x-axis')
+            .attr('class', 'x-axis invisible')
             .attr('transform', `translate(0, ${height})`)
             .call(xAxis);
 
