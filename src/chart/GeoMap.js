@@ -3,6 +3,7 @@ import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
 const GeoMap = ({ selectedProvince }) => {
+    selectedProvince = selectedProvince.replace(' City', '').trim();
     const geoMapRef = useRef();
 
     useEffect(() => {
@@ -21,7 +22,7 @@ const GeoMap = ({ selectedProvince }) => {
             geoJSONData.features.forEach(feature => {
                 feature.properties.Name = feature.properties.Name
                     .replace(' Province', '').trim()
-                // .replace(' City', '').trim();
+                    .replace(' City', '').trim();
             });
 
             // Set up projection and path generator
