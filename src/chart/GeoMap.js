@@ -7,6 +7,9 @@ const GeoMap = ({ selectedProvince }) => {
     if (selectedProvince === 'Vung Tau') {
         selectedProvince = 'Ba Ria - Vung Tau';
     }
+    if (selectedProvince === 'Hue') {
+        selectedProvince = 'Thua Thien Hue';
+    }
     const geoMapRef = useRef();
 
     useEffect(() => {
