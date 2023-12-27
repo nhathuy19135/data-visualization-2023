@@ -4,6 +4,9 @@ import * as d3 from 'd3';
 
 const GeoMap = ({ selectedProvince }) => {
     selectedProvince = selectedProvince.replace(' City', '').trim();
+    if (selectedProvince === 'Vung Tau') {
+        selectedProvince = 'Ba Ria - Vung Tau';
+    }
     const geoMapRef = useRef();
 
     useEffect(() => {
