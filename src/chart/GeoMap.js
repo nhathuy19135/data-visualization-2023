@@ -43,7 +43,7 @@ const GeoMap = ({ selectedProvince }) => {
             function updateFillColor(paths) {
                 paths.each(function (d) {
                     const provinceName = d.properties.Name.trim();
-                    const fillColor = provinceName === selectedProvince ? 'cyan' : 'lightgray';
+                    const fillColor = provinceName === selectedProvince ? 'steelblue' : 'lightgray';
                     d3.select(this).attr('fill', fillColor);
                 });
             }
@@ -70,7 +70,7 @@ const GeoMap = ({ selectedProvince }) => {
                 // Remove the text elements and revert any changes made during mouseover
                 geoMapSvg.selectAll('.province-label').remove();
                 const provinceName = d.properties.Name.replace(' Province', ''); // Remove "Province" suffix
-                d3.select(event.target).attr('fill', provinceName === selectedProvince ? 'cyan' : 'lightgray');
+                d3.select(event.target).attr('fill', provinceName === selectedProvince ? 'steelblue' : 'lightgray');
             }
         });
     }, [selectedProvince]);
