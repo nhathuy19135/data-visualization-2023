@@ -32,15 +32,15 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
 
         // Check the selected parameter and filter based on it
         let parameterKey;
-        let mearsurementUnit;
+        let measurementUnit;
         switch (selectedParameter) {
             case 'max temp':
                 parameterKey = 'max';
-                mearsurementUnit = '°C';
+                measurementUnit = '°C';
                 break;
             case 'min temp':
                 parameterKey = 'min';
-                mearsurementUnit = '°C';
+                measurementUnit = '°C';
                 break;
             // case 'wind':
             //     parameterKey = 'wind';
@@ -50,19 +50,19 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
             //     break;
             case 'rain':
                 parameterKey = 'rain';
-                mearsurementUnit = 'mm';
+                measurementUnit = 'mm';
                 break;
             case 'humidity':
                 parameterKey = 'humidi';
-                mearsurementUnit = '%';
+                measurementUnit = '%';
                 break;
             case 'cloud density':
                 parameterKey = 'cloud';
-                mearsurementUnit = '%';
+                measurementUnit = '%';
                 break;
             case 'pressure':
                 parameterKey = 'pressure';
-                mearsurementUnit = 'hPa';
+                measurementUnit = 'hPa';
                 break;
             default:
                 console.error('Unknown parameter:', selectedParameter);
@@ -200,7 +200,7 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
                     .attr("cx", xScale(new Date(selectedData.date)))
                     .attr("cy", yScale(selectedData[parameterKey]));
                 focusText
-                    .html(selectedData[parameterKey] + mearsurementUnit)
+                    .html(selectedData[parameterKey] + measurementUnit)
                     .attr("x", xScale(new Date(selectedData.date)) + 0)
                     .attr("y", yScale(selectedData[parameterKey]) - 30);
 
