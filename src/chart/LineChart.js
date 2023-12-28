@@ -32,12 +32,15 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
 
         // Check the selected parameter and filter based on it
         let parameterKey;
+        let mearsurementUnit;
         switch (selectedParameter) {
             case 'max temp':
                 parameterKey = 'max';
+                mearsurementUnit = '°C';
                 break;
             case 'min temp':
                 parameterKey = 'min';
+                mearsurementUnit = '°C';
                 break;
             // case 'wind':
             //     parameterKey = 'wind';
@@ -47,15 +50,19 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
             //     break;
             case 'rain':
                 parameterKey = 'rain';
+                mearsurementUnit = 'mm';
                 break;
             case 'humidity':
                 parameterKey = 'humidi';
+                mearsurementUnit = '%';
                 break;
             case 'cloud density':
                 parameterKey = 'cloud';
+                mearsurementUnit = '%';
                 break;
             case 'pressure':
                 parameterKey = 'pressure';
+                mearsurementUnit = 'hPa';
                 break;
             default:
                 console.error('Unknown parameter:', selectedParameter);
@@ -193,7 +200,7 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
                     .attr("cx", xScale(new Date(selectedData.date)))
                     .attr("cy", yScale(selectedData[parameterKey]));
                 focusText
-                    .html("y:" + selectedData[parameterKey])
+                    .html(selectedData[parameterKey] + mearsurementUnit)
                     .attr("x", xScale(new Date(selectedData.date)) + 0)
                     .attr("y", yScale(selectedData[parameterKey]) - 30);
 

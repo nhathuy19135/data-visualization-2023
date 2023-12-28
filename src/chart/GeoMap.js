@@ -29,10 +29,6 @@ const GeoMap = ({ selectedProvince }) => {
         const colorScale = d3.scaleLinear()
             .domain([0, 1]) // input
             .range(["#ff0000", "#0000ff"]); // output
-        const randomValue = Math.random();
-
-        // Get a color from the color scale
-        const color = colorScale(randomValue);
 
         // Load GeoJSON data for Vietnam provinces
         const geoJSONUrl = 'https://raw.githubusercontent.com/TungTh/tungth.github.io/master/data/vn-provinces.json';
@@ -60,6 +56,11 @@ const GeoMap = ({ selectedProvince }) => {
             updateFillColor(paths);
 
             function updateFillColor(paths) {
+                const randomValue = Math.random();
+
+                // Get a color from the color scale
+                const color = colorScale(randomValue);
+        
                 paths.each(function (d) {
                     const provinceName = d.properties.Name.trim();
                     const fillColor = provinceName === selectedProvince ? color : 'lightgray';
@@ -87,10 +88,15 @@ const GeoMap = ({ selectedProvince }) => {
             }
 
             function handleMouseOut(event, d) {
+                const randomValue = Math.random();
+
+                // Get a color from the color scale
+                const color = colorScale(randomValue);
+        
                 // Remove the text elements and revert any changes made during mouseover
                 geoMapSvg.selectAll('.province-label').remove();
                 const provinceName = d.properties.Name.replace(' Province', ''); // Remove "Province" suffix
-                d3.select(event.target).attr('fill', provinceName === selectedProvince ? 'steelblue' : 'lightgray');
+                d3.select(event.target).attr('fill', provinceName === selectedProvince ? color : 'lightgray');
             }
         });
     }, [selectedProvince]);
