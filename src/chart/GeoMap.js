@@ -13,13 +13,26 @@ const GeoMap = ({ selectedProvince }) => {
     const geoMapRef = useRef();
 
     useEffect(() => {
-        const width = 500;
+        // GeoMap.js
+        const margin = { top: 10, right: 0, bottom: 30, left: 100 }; // existing margins
+
+        // Increase the left margin
+        // margin.left += 50; // adjust this value as needed
+        const width = 450;
         const height = 500;
 
         // Append an SVG element for the GeoMap
         const geoMapSvg = d3.select(geoMapRef.current)
-            .attr('width', width)
-            .attr('height', height);
+            .attr('width', width + margin.left + margin.right)
+            .attr('height', height + margin.top + margin.bottom)
+
+        const colorScale = d3.scaleLinear()
+            .domain([0, 1]) // input
+            .range(["#ff0000", "#0000ff"]); // output
+        const randomValue = Math.random();
+
+        // Get a color from the color scale
+        const color = colorScale(randomValue);
 
         // Load GeoJSON data for Vietnam provinces
         const geoJSONUrl = 'https://raw.githubusercontent.com/TungTh/tungth.github.io/master/data/vn-provinces.json';
@@ -49,10 +62,11 @@ const GeoMap = ({ selectedProvince }) => {
             function updateFillColor(paths) {
                 paths.each(function (d) {
                     const provinceName = d.properties.Name.trim();
-                    const fillColor = provinceName === selectedProvince ? 'steelblue' : 'lightgray';
+                    const fillColor = provinceName === selectedProvince ? color : 'lightgray';
                     d3.select(this).attr('fill', fillColor);
                 });
             }
+
 
             // Function to handle mouseover event on GeoMap
             function handleMouseOver(event, d) {

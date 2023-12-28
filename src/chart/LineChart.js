@@ -15,8 +15,8 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
             .remove();
 
         const margin = { top: 40, right: 30, bottom: 40, left: 50 };
-        const width = 1200 - margin.left - margin.right;
-        const height = 500 - margin.top - margin.bottom;
+        const width = 800 - margin.left - margin.right;
+        const height = 400 - margin.top - margin.bottom;
 
         const svg = d3
             .select(chartRef.current)
@@ -122,6 +122,20 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
 
         // This allows to find the closest X index of the mouse:
         var bisect = d3.bisector(function (d) { return new Date(d.date); }).left;
+        // Add vertical line to the focus
+        var focusVerticalLine = svg
+            .append('line')
+            .style("stroke", "black")
+            .style("stroke-dasharray", ("3, 3"))  // Set the line style to dashed
+            .style("opacity", 0);
+
+        // Add horizontal line to the focus
+        var focusHorizontalLine = svg
+            .append('line')
+            .style("stroke", "black")
+            .style("stroke-dasharray", ("3, 3"))  // Set the line style to dashed
+            .style("opacity", 0);
+
 
         // Create the circle that travels along the curve of chart
         var focus = svg
@@ -164,6 +178,8 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
         function mouseover() {
             focus.style("opacity", 1);
             focusText.style("opacity", 1);
+            focusVerticalLine.style("opacity", 1);  // Show the vertical line
+            focusHorizontalLine.style("opacity", 1);  // Show the horizontal line
         }
         let selectedData;
 
@@ -180,19 +196,33 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
                     .html("y:" + selectedData[parameterKey])
                     .attr("x", xScale(new Date(selectedData.date)) + 0)
                     .attr("y", yScale(selectedData[parameterKey]) - 30);
+
+                // Update the position of the vertical line
+                focusVerticalLine
+                    .attr("x1", xScale(new Date(selectedData.date)))
+                    .attr("y1", yScale.range()[0])  // Bottom of the chart
+                    .attr("x2", xScale(new Date(selectedData.date)))
+                    .attr("y2", yScale.range()[1]); // Top of the chart
+
+                // Update the position of the horizontal line
+                focusHorizontalLine
+                    .attr("x1", xScale.range()[0])  // Left of the chart
+                    .attr("y1", yScale(selectedData[parameterKey]))
+                    .attr("x2", xScale.range()[1])  // Right of the chart
+                    .attr("y2", yScale(selectedData[parameterKey]));
             }
         }
 
         function mouseout() {
             focus.style("opacity", 0);
             focusText.style("opacity", 0);
+            focusVerticalLine.style("opacity", 0);  // Hide the vertical line
+            focusHorizontalLine.style("opacity", 0);  // Hide the horizontal line
         }
 
         // Create x and y axes
         const xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat('%b %Y'));
         const yAxis = d3.axisLeft(yScale);
-
-
 
         svg
             .append('g')
@@ -202,17 +232,16 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
 
         svg.append('g').attr('class', 'y-axis').call(yAxis);
 
-       
-    }, [data, selectedParameter, selectedProvince, selectedYear, ]);
-    
+
+    }, [data, selectedParameter, selectedProvince, selectedYear]);
 
     return (
         <div>
-        <svg ref={chartRef}></svg>
-        <div className="geomap-container">
-            <GeoMap selectedProvince={selectedProvince}/> {/* Use the GeoMap component */}
+            <svg ref={chartRef}></svg>
+            {/* <div className="geomap-container"> */}
+            <GeoMap selectedProvince={selectedProvince} /> {/* Use the GeoMap component */}
+            {/* </div> */}
         </div>
-    </div>
     );
 };
 

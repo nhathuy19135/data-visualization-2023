@@ -1,61 +1,68 @@
-/* App.css */
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  background-color: #f4f4f4;
+	font-family: "Roboto", sans-serif;
+	margin: 0;
+	padding: 0;
+	height: 100vh;
+	background: linear-gradient(to right, #f4f4f4, #c9d6ff);
 }
 
 .container {
-  text-align: center;
+	text-align: center;
 }
 
 .line-chart {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
 }
 
 .province-label {
-  font-size: 12px;
-  fill: black;
+	font-size: 12px;
+	fill: black;
 }
 
 .navbar {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 20px;
-  background-color: #f8f9fa;
-  width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	padding: 20px;
+	background: linear-gradient(to right, #f8f9fa, #a1c4fd);
+	width: 100%;
 }
 
 .navbar select {
-  width: 200px;
-  padding: 5px;
-  border: none;
-  border-radius: 4px;
-  background-color: #e9ecef;
-  font-size: 16px;
+	width: 200px;
+	padding: 5px;
+	border: none;
+	border-radius: 4px;
+	background-color: #e9ecef;
+	font-size: 16px;
+	font-family: "Lato", sans-serif;
+	transition: .3s;
 }
+
+/* .navbar select:hover {
+	transform: scale(1.1);
+} */
+
 .tooltip {
-  position: absolute;
-  text-align: left;
-  width: auto; /* Let the tooltip resize based on content */
-  padding: 10px; /* Increase padding for better spacing */
-  margin: 4px;
-  font-size: 14px; /* Increase font size for better readability */
-  font-family: Arial, sans-serif; /* Use a more readable font */
-  background: #333; /* Use a darker background for contrast */
-  color: #fff; /* Use white color for text for better visibility */
-  border-radius: 5px; /* Reduce border radius for a more modern look */
-  box-shadow: 0px 0px 10px rgba(2, 198, 243, 0.5); /* Add a shadow for depth */
-  pointer-events: none;
+	position: absolute;
+	text-align: left;
+	width: auto;
+	padding: 10px;
+	margin: 4px;
+	font-size: 14px;
+	font-family: Arial, sans-serif;
+	background: #333;
+	color: #fff;
+	border-radius: 5px;
+	box-shadow: 0px 0px 10px rgba(2, 198, 243, .5);
+	pointer-events: none;
 }
+
 .invisible {
-  opacity: 0;
+	opacity: 0;
 }
