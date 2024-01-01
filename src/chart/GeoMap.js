@@ -7,9 +7,67 @@ const GeoMap = ({ selectedProvince }) => {
     if (selectedProvince === 'Vung Tau') {
         selectedProvince = 'Ba Ria - Vung Tau';
     }
+    if (selectedProvince === 'Hanoi') {
+        selectedProvince = 'Ha Noi';
+    }
     if (selectedProvince === 'Hue') {
         selectedProvince = 'Thua Thien Hue';
     }
+    if (selectedProvince === 'Tam Ky') {
+        selectedProvince = 'Quang Nam';
+    }
+    if (selectedProvince === 'Tan An') {
+        selectedProvince = 'Long An';
+    }
+    if (selectedProvince === 'Bien Hoa' ) {
+        selectedProvince = 'Dong Nai';
+    }
+    if (selectedProvince === 'Hong Gai' || selectedProvince === 'Cam Pha' || selectedProvince === 'Uong Bi' ) {
+        selectedProvince = 'Quang Ninh';
+    }
+    if (selectedProvince === 'Buon Me Thuot') {
+        selectedProvince = 'Dak Lak';
+    }
+    if (selectedProvince === 'Long Xuyen') {
+        selectedProvince = 'An Giang';
+    }
+    if (selectedProvince === 'My Tho') {
+        selectedProvince = 'Tien Giang';
+    }
+    if (selectedProvince === 'Tuy Hoa') {
+        selectedProvince = 'Phu Yen';
+    }
+    if (selectedProvince === 'Cam Ranh' || selectedProvince === 'Nha Trang') {
+        selectedProvince = 'Khanh Hoa';
+    }
+    if (selectedProvince === 'Viet Tri') {
+        selectedProvince = 'Phu Tho';
+    }
+    if (selectedProvince === 'Chau Doc') {
+        selectedProvince = 'An Giang';
+    }
+    if (selectedProvince === 'Phan Rang') {
+        selectedProvince = 'Ninh Thuan';
+    }
+    if (selectedProvince === 'Vinh') {
+        selectedProvince = 'Nghe An';
+    }
+    if (selectedProvince === 'Da Lat') {
+        selectedProvince = 'Lam Dong';
+    }
+    if (selectedProvince === 'Phan Thiet') {
+        selectedProvince = 'Binh Thuan';
+    }
+    if (selectedProvince === 'Play Cu') {
+        selectedProvince = 'Gia Lai'
+    }
+    if (selectedProvince === 'Qui Nhon') {
+        selectedProvince = 'Binh Dinh';
+    }
+    if (selectedProvince === 'Rach Gia') {
+        selectedProvince = 'Kien Giang';
+    }
+
     const geoMapRef = useRef();
 
     useEffect(() => {

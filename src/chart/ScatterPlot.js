@@ -9,7 +9,7 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
         // Ensure the chart is cleared before drawing a new one
         d3.select(chartRef.current).selectAll('*').remove();
 
-        const margin = { top: 20, right: 30, bottom: 40, left: 50 };
+        const margin = { top: 60, right: 30, bottom: 40, left: 50 };
         const width = 800 - margin.left - margin.right;
         const height = 300 - margin.top - margin.bottom;
 
@@ -103,7 +103,7 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
             .style('opacity', 1);
 
         // Create x and y axes
-        const xAxis = d3.axisBottom(xScale);
+        const xAxis = d3.axisBottom(xScale).tickFormat("");
         const yAxis = d3.axisLeft(yScale);
 
         svg
