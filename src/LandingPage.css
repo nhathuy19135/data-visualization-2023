@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
 .landing-page {
     display: flex;
-    background-image: url('../public/murm.png');
+    background-image: url('../public/WEATHER\ BACKGROUND.gif');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -10,19 +16,53 @@
     align-items: center;
     height: 100vh;
     background-color: rgba(255, 255, 255, 0.5);
-  }
-  
-  .title {
-    font-size: 2.5em;
-    font-family: Arial, sans-serif;
-  }
-  
-  .subtitle {
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.title {
+    font-size: 50px;
+    color: #333;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.subtitle {
     font-size: 1.5em;
-    font-family: Arial, sans-serif;
-  }
-  
-  .link {
+    color: #666;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+.link {
     font-size: 1.2em;
-    font-family: Arial, sans-serif;
-  }
+    color: #007BFF;
+    text-decoration: none;
+    padding: 10px 20px;
+    border: 2px solid #007BFF;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.link:hover {
+    background-color: #007BFF;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+.members-table {
+    font-size: larger;
+    margin-top: 40px;
+    border-collapse: collapse;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.members-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s ease;
+}
+
+.members-table td:hover {
+    background-color: #f5f5f5;
+}

@@ -72,16 +72,23 @@ const DashBoard = () => {
           selectedProvince={selectedProvince}
           selectedYear={selectedYear}
           selectedParameter={selectedParameter} />
-           <ScatterPlot
-        data={data}
-        selectedProvince={selectedProvince}
-        selectedYear={selectedYear}
-        selectedParameter={selectedParameter}
-      />
+        <ScatterPlot
+          data={data}
+          selectedProvince={selectedProvince}
+          selectedYear={selectedYear}
+          selectedParameter={selectedParameter}
+        />
       </>
       <footer className="footer">
-        <p></p>
-        <p>footer</p>
+        <p>© 2023 Vietnam Weather Data</p>
+        <p>
+          Datasets:
+          <a href="https://raw.githubusercontent.com/TungTh/tungth.github.io/master/data/vn-provinces.json" target="_blank" rel="noopener noreferrer">GeoMap</a>,
+          <a href="https://raw.githubusercontent.com/vanviethieuanh/dataset/main/weather/weather.csv" target="_blank" rel="noopener noreferrer">Weather</a>
+        </p>
+        <p>
+          <a href="https://github.com/nhathuy19135/data-visualization-2023" target="_blank" rel="noopener noreferrer">GitHub Repo</a>
+        </p>
       </footer>
     </div>
 

@@ -10,7 +10,7 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
         d3.select(chartRef.current).selectAll('*').remove();
 
         const margin = { top: 60, right: 30, bottom: 40, left: 50 };
-        const width = 800 - margin.left - margin.right;
+        const width = 1200 - margin.left - margin.right;
         const height = 300 - margin.top - margin.bottom;
 
         const svg = d3
