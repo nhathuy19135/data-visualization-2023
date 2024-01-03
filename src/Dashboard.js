@@ -6,6 +6,7 @@ import { fetchWeatherData } from './script/d3test';
 import LineChart from './chart/LineChart';
 import ScatterPlot from './chart/ScatterPlot';
 import "./App.css"
+import TimeSeriesChart from './chart/TimeSeriesChart';
 
 const DashBoard = () => {
   const [selectedProvince, setSelectedProvince] = useState('');
@@ -78,6 +79,12 @@ const DashBoard = () => {
           selectedYear={selectedYear}
           selectedParameter={selectedParameter}
         />
+        <TimeSeriesChart
+          data={data}
+          selectedProvince={selectedProvince}
+          selectedParameter={selectedParameter}
+        />
+
       </>
       <footer className="footer">
         <p>© 2023 Vietnam Weather Data</p>
