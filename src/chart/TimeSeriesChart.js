@@ -1,9 +1,11 @@
 // TimeSeriesChart.js
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
+import d3Tip from 'd3-tip';
 
 const TimeSeriesChart = ({ data, selectedProvince, selectedParameter }) => {
   const chartRef = useRef();
+  const [selectedMonth, setSelectedMonth] = useState(null);
 
   useEffect(() => {
     d3.select(chartRef.current)
@@ -14,7 +16,7 @@ const TimeSeriesChart = ({ data, selectedProvince, selectedParameter }) => {
       .remove();
 
     const margin = { top: 40, right: 30, bottom: 40, left: 50 };
-    const width = 800 - margin.left - margin.right;
+    const width = 1200 - margin.left - margin.right;
     const height = 400 - margin.top - margin.bottom;
 
     const svg = d3
@@ -25,8 +27,12 @@ const TimeSeriesChart = ({ data, selectedProvince, selectedParameter }) => {
       .attr('transform', `translate(${margin.left},${margin.top})`);
 
     // Filter data for the selected province and parameter
-    const filteredData = data
-      .filter((entry) => entry.province === selectedProvince);
+    let filteredData = data.filter((entry) => entry.province === selectedProvince);
+
+    // Filter data based on the selected month
+    if (selectedMonth !== null) {
+      filteredData = filteredData.filter((entry) => new Date(entry.date).getMonth() === selectedMonth);
+    }
 
     let parameterKey;
     let measurementUnit;
@@ -39,7 +45,28 @@ const TimeSeriesChart = ({ data, selectedProvince, selectedParameter }) => {
         parameterKey = 'min';
         measurementUnit = '°C';
         break;
-      // Add cases for other parameters if needed
+      // case 'wind':
+      //     parameterKey = 'wind';
+      //     break;
+      // case 'wind_d':
+      //     parameterKey = 'wind_d';
+      //     break;
+      case 'rain':
+        parameterKey = 'rain';
+        measurementUnit = 'mm';
+        break;
+      case 'humidity':
+        parameterKey = 'humidi';
+        measurementUnit = '%';
+        break;
+      case 'cloud density':
+        parameterKey = 'cloud';
+        measurementUnit = '%';
+        break;
+      case 'pressure':
+        parameterKey = 'pressure';
+        measurementUnit = 'hPa';
+        break;
       default:
         console.error('Unknown parameter:', selectedParameter);
         return;
@@ -53,53 +80,49 @@ const TimeSeriesChart = ({ data, selectedProvince, selectedParameter }) => {
 
     const yScale = d3
       .scaleLinear()
-      .domain([0, d3.max(filteredData, (d) => d[parameterKey])])
+      .domain([d3.min(filteredData, (d) => d[parameterKey]) - 50, d3.max(filteredData, (d) => d[parameterKey]) + 50])
       .nice()
       .range([height, 0]);
 
-    filteredData.sort((a, b) => new Date(a.date) - new Date(b.date));
+    if (selectedMonth !== null) {
+      const selectedMonthData = filteredData.filter((entry) => new Date(entry.date).getMonth() === selectedMonth);
+      xScale.domain(d3.extent(selectedMonthData, (d) => new Date(d.date)));
+    } else {
+      xScale.domain(d3.extent(filteredData, (d) => new Date(d.date)));
+    }
 
-    // Create separate line generators for max and min values
-    const lineMax = d3
-      .line()
-      .x((d) => xScale(new Date(d.date)))
-      .y((d) => yScale(d.max));
+    // Create scatter plot for max values
+    const maxPoints = svg
+      .selectAll('.point-max')
+      .data(filteredData)
+      .enter()
+      .append('circle')
+      .attr('class', 'point-max')
+      .attr('cx', (d) => xScale(new Date(d.date)))
+      .attr('cy', (d) => yScale(d.max))
+      .attr('r', 5) // Adjust the radius as needed
+      .style('fill', 'steelblue');
 
-    const lineMin = d3
-      .line()
-      .x((d) => xScale(new Date(d.date)))
-      .y((d) => yScale(d.min));
-
-    // Append the path for the max value line
-    svg
-      .append('path')
-      .datum(filteredData)
-      .attr('class', 'line-max')
-      .style('fill', 'none')
-      .style('stroke', 'steelblue')
-      .style('stroke-width', 2)
-      .style('opacity', 0)
-      .transition()
-      .duration(1000)
-      .attr('d', lineMax)
-      .style('opacity', 1);
-
-    // Append the path for the min value line
-    svg
-      .append('path')
-      .datum(filteredData)
-      .attr('class', 'line-min')
-      .style('fill', 'none')
-      .style('stroke', 'orange')
-      .style('stroke-width', 2)
-      .style('opacity', 0)
-      .transition()
-      .duration(1000)
-      .attr('d', lineMin)
-      .style('opacity', 1);
+    // Create scatter plot for min values
+    const minPoints = svg
+      .selectAll('.point-min')
+      .data(filteredData)
+      .enter()
+      .append('circle')
+      .attr('class', 'point-min')
+      .attr('cx', (d) => xScale(new Date(d.date)))
+      .attr('cy', (d) => yScale(d.min))
+      .attr('r', 5) // Adjust the radius as needed
+      .style('fill', 'orange');
 
     // Create x and y axes
-    const xAxis = d3.axisBottom(xScale).tickFormat(d3.timeFormat('%b %Y'));
+    const xAxis = d3.axisBottom(xScale).tickFormat((date) => {
+      const monthYearFormat = d3.timeFormat('%b %Y');
+      const selectedMonthFormat = d3.timeFormat('%b %Y')(date);
+      return selectedMonth !== null ? selectedMonthFormat : monthYearFormat(date);
+    });
+    
+
     const yAxis = d3.axisLeft(yScale);
 
     svg
@@ -109,9 +132,50 @@ const TimeSeriesChart = ({ data, selectedProvince, selectedParameter }) => {
       .call(xAxis);
 
     svg.append('g').attr('class', 'y-axis').call(yAxis);
-  }, [data, selectedParameter, selectedProvince]);
 
-  return <svg ref={chartRef}></svg>;
+    // Initialize the tooltip
+    const tip = d3Tip()
+      .attr('class', 'd3-tip')
+      .html((event, d) => {
+        const formattedDate = d3.timeFormat('%b %Y')(new Date(d.date));
+        const avgMax = d3.mean(filteredData, (point) => point.max).toFixed(2);
+        const avgMin = d3.mean(filteredData, (point) => point.min).toFixed(2);
+        return `<strong>Date:</strong> ${formattedDate}<br><strong>Avg Max:</strong> ${avgMax}${measurementUnit}<br><strong>Avg Min:</strong> ${avgMin}${measurementUnit}`;
+
+      });
+
+    // Call the tooltip on the max and min points
+    maxPoints.call(tip);
+    minPoints.call(tip);
+
+    // Show tooltip on mouseover
+    maxPoints.on('mouseover', tip.show).on('mouseout', tip.hide);
+    minPoints.on('mouseover', tip.show).on('mouseout', tip.hide);
+  }, [data, selectedParameter, selectedProvince, selectedMonth]);
+
+  // Function to handle month selection change
+  const handleMonthChange = (event) => {
+    const selectedMonthValue = event.target.value;
+    setSelectedMonth(selectedMonthValue !== 'all' ? parseInt(selectedMonthValue, 10) : null);
+  };
+
+  return (
+    <div className="container">
+      <div className="chart-title">Line Chart</div>
+      <div className="select-container">
+        <label htmlFor="monthSelect">Select Month:</label>
+        <select id="monthSelect" onChange={handleMonthChange}>
+          <option value="all">All Months</option>
+          {Array.from({ length: 12 }, (_, i) => (
+            <option key={i} value={i}>
+              {d3.timeFormat('%B')(new Date(2000, i, 1))}
+            </option>
+          ))}
+        </select>
+      </div>
+      <svg ref={chartRef}></svg>
+    </div>
+  );
 };
 
 export default TimeSeriesChart;
