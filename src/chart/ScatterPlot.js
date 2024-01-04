@@ -121,7 +121,7 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
-                tooltip.html(`${d[0]}<br/>Temperature: ${d[1]}`)
+                tooltip.html(`${d[0]}<br/>Temperature: ${d[1]}°C`)
                     .style("left", (event.pageX) + "px")
                     .style("top", (event.pageY - 28) + "px");
             })
