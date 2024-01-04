@@ -16,7 +16,7 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
 
         const margin = { top: 40, right: 30, bottom: 40, left: 50 };
         const width = 800 - margin.left - margin.right;
-        const height = 400 - margin.top - margin.bottom;
+        const height = 300 - margin.top - margin.bottom;
 
         const svg = d3
             .select(chartRef.current)
@@ -163,12 +163,12 @@ const LineChart = ({ data, selectedProvince, selectedYear, selectedParameter, })
 
         svg
             .append('text')
-            .attr('x', width / 2)
+            .attr('x', width / 6)
             .attr('y', -margin.top / 2)
             .attr('text-anchor', 'middle')
             .style('font-size', '16px')
             .style('font-weight', 'bold')
-            .text('Line Chart');
+            .text('Line Chart Based on Parameter');
 
         // Create a rect on top of the svg area: this rectangle recovers mouse position
         svg

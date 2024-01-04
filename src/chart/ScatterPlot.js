@@ -10,8 +10,8 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
         d3.select(chartRef.current).selectAll('*').remove();
 
         const margin = { top: 60, right: 30, bottom: 40, left: 50 };
-        const width = 1200 - margin.left - margin.right;
-        const height = 300 - margin.top - margin.bottom;
+        const width = 650 - margin.left - margin.right;
+        const height = 320 - margin.top - margin.bottom;
 
         const svg = d3
             .select(chartRef.current)
@@ -49,14 +49,16 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
             },
             (d) => d.province
         );
+
+
         svg
             .append('text')
-            .attr('x', width / 2)
+            // .attr('x', width / 2)
             .attr('y', -margin.top / 2)
-            .attr('text-anchor', 'left')
+            .attr('text-anchor', 'start')
             .style('font-size', '16px')
             .style('font-weight', 'bold')
-            .text('Scatter Plot');
+            .text('Temperature by Province');
 
         var tooltip = d3.select("body").append("div")
             .attr("class", "tooltip")
@@ -75,6 +77,36 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
             .nice()
             .range([height, 0]);
 
+        const colorScale = d3.scaleOrdinal(d3.schemeCategory10);
+        // // Get unique provinces
+        // const provinces = Array.from(new Set(data.map((entry) => entry.province)));
+
+        // // Define the size and position of the legend
+        // const legendSize = 10;
+        // const legendSpacing = 4;
+        // const legendY = -margin.top / 2;
+
+        // // Create a group for the legend
+        // const legend = svg.selectAll('.legend')
+        //     .data(provinces)
+        //     .enter()
+        //     .append('g')
+        //     .attr('class', 'legend')
+        //     .attr('transform', (d, i) => `translate(0,${i * (legendSize + legendSpacing)})`);
+
+        // // Add a rectangle for each legend item
+        // legend.append('rect')
+        //     .attr('width', legendSize)
+        //     .attr('height', legendSize)
+        //     .style('fill', colorScale)
+        //     .style('stroke', colorScale);
+
+        // // Add a label for each legend item
+        // legend.append('text')
+        //     .attr('x', legendSize + legendSpacing)
+        //     .attr('y', legendSize - legendSpacing)
+        //     .text((d) => d);
+
         // Create the scatter plot points
         svg.selectAll('circle')
             .data(Array.from(temperatureValues))
@@ -83,13 +115,13 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
             .attr('cx', (d) => xScale(d[0]) + xScale.bandwidth() / 2)
             .attr('cy', (d) => yScale(d[1]))
             .attr('r', 5)
-            .style('fill', 'steelblue')
+            .style('fill', (d) => colorScale(d[0]))
             .style('opacity', 0)
             .on("mouseover", function (event, d) {
                 tooltip.transition()
                     .duration(200)
                     .style("opacity", .9);
-                tooltip.html(`${d[0]}<br/>Temperature: ${d[1]}`)  
+                tooltip.html(`${d[0]}<br/>Temperature: ${d[1]}`)
                     .style("left", (event.pageX) + "px")
                     .style("top", (event.pageY - 28) + "px");
             })

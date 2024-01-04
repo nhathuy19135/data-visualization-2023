@@ -136,4 +136,7 @@ body {
   .d3-tip strong {
 	color: #ffcc00; /* Highlights the labels for better readability */
   }
-  
+  .mini-chart-container {
+	display: flex;
+	justify-content: space-between;
+  }

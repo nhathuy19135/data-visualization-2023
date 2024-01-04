@@ -73,17 +73,19 @@ const DashBoard = () => {
           selectedProvince={selectedProvince}
           selectedYear={selectedYear}
           selectedParameter={selectedParameter} />
-        <ScatterPlot
-          data={data}
-          selectedProvince={selectedProvince}
-          selectedYear={selectedYear}
-          selectedParameter={selectedParameter}
-        />
-        <TimeSeriesChart
-          data={data}
-          selectedProvince={selectedProvince}
-          selectedParameter={selectedParameter}
-        />
+        <div className="mini-chart-container">
+          <ScatterPlot
+            data={data}
+            selectedProvince={selectedProvince}
+            selectedYear={selectedYear}
+            selectedParameter={selectedParameter}
+          />
+          <TimeSeriesChart
+            data={data}
+            selectedProvince={selectedProvince}
+            selectedParameter={selectedParameter}
+          />
+        </div>
 
       </>
       <footer className="footer">
