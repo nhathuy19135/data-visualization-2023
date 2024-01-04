@@ -101,6 +101,7 @@ const GeoMap = ({ selectedProvince }) => {
             // Set up projection and path generator
             const projection = d3.geoMercator().fitSize([width, height], geoJSONData);
             const pathGenerator = d3.geoPath().projection(projection);
+            const colorInterpolator = d3.interpolateRainbow;
 
             // Draw the map
             const paths = geoMapSvg.selectAll('path')
@@ -114,18 +115,26 @@ const GeoMap = ({ selectedProvince }) => {
             updateFillColor(paths);
 
             function updateFillColor(paths) {
-                const randomValue = Math.random();
-
-                // Get a color from the color scale
-                const color = colorScale(randomValue);
-        
                 paths.each(function (d) {
                     const provinceName = d.properties.Name.trim();
-                    const fillColor = provinceName === selectedProvince ? color : 'lightgray';
-                    d3.select(this).attr('fill', fillColor);
+                    if (provinceName === selectedProvince) {
+                        // Start a transition that changes the fill color over time
+                        d3.select(this)
+                            .transition()
+                            .duration(5000) // Duration of the transition in milliseconds
+                            .ease(d3.easeLinear) // Linear easing function for a constant speed
+                            .attrTween('fill', function() {
+                                return function(t) {
+                                    return colorInterpolator(t);
+                                };
+                            });
+                    } else {
+                        d3.select(this)
+                            .interrupt() // Stop the transition
+                            .attr('fill', 'lightgray'); // Reset the fill color
+                    }
                 });
             }
-
 
             // Function to handle mouseover event on GeoMap
             function handleMouseOver(event, d) {
