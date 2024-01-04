@@ -121,7 +121,7 @@ const TimeSeriesChart = ({ data, selectedProvince, selectedParameter }) => {
       const selectedMonthFormat = d3.timeFormat('%b %Y')(date);
       return selectedMonth !== null ? selectedMonthFormat : monthYearFormat(date);
     });
-    
+
 
     const yAxis = d3.axisLeft(yScale);
 
@@ -138,9 +138,9 @@ const TimeSeriesChart = ({ data, selectedProvince, selectedParameter }) => {
       .attr('class', 'd3-tip')
       .html((event, d) => {
         const formattedDate = d3.timeFormat('%b %Y')(new Date(d.date));
-        const avgMax = d3.mean(filteredData, (point) => point.max).toFixed(2);
-        const avgMin = d3.mean(filteredData, (point) => point.min).toFixed(2);
-        return `<strong>Date:</strong> ${formattedDate}<br><strong>Avg Max:</strong> ${avgMax}${measurementUnit}<br><strong>Avg Min:</strong> ${avgMin}${measurementUnit}`;
+        const max = d.max.toFixed(2);
+        const min = d.min.toFixed(2);
+        return `<strong>Date:</strong> ${formattedDate}<br><strong>Max:</strong> ${max}${measurementUnit}<br><strong>Min:</strong> ${min}${measurementUnit}`;
 
       });
 
