@@ -2,7 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
-const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
+const ScatterPlot = ({ data, selectedYear, selectedParameter, selectedProvince }) => {
     const chartRef = useRef();
 
     useEffect(() => {
@@ -115,7 +115,7 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
             .attr('cx', (d) => xScale(d[0]) + xScale.bandwidth() / 2)
             .attr('cy', (d) => yScale(d[1]))
             .attr('r', 5)
-            .style('fill', (d) => colorScale(d[0]))
+            .style('fill', (d) => d[0] === selectedProvince ? 'red' : 'lightgray')
             .style('opacity', 0)
             .on("mouseover", function (event, d) {
                 tooltip.transition()
@@ -145,7 +145,7 @@ const ScatterPlot = ({ data, selectedYear, selectedParameter }) => {
             .call(xAxis);
 
         svg.append('g').attr('class', 'y-axis').call(yAxis);
-    }, [data, selectedYear, selectedParameter]);
+    }, [data, selectedYear, selectedParameter, selectedProvince]);
 
     return <svg ref={chartRef}></svg>;
 };
